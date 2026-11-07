@@ -1,97 +1,74 @@
 # GameHub-Winlator
 
-**Obiettivo:** partire da Winlator (open source) e creare una versione con interfaccia simile a GameHub.
+Winlator + UI stile GameHub + build APK con **GitHub Actions**.
 
 ---
 
-## Stato del progetto
+## Percorso scelto: opzione 1 (compilare Winlator con Actions)
 
-| Fase | Stato |
-|------|--------|
-| Repository creato | ✅ |
-| Fork di Winlator | In corso / da completare manualmente |
-| UI stile GameHub | Da iniziare |
-| Prima build APK | Da fare |
+### Realta importante
 
----
+Il repo principale `brunodev85/winlator` usa **submodule** e componenti nativi pesanti.
+Il codice Android vero e in:
 
-## Cosa vogliamo ottenere
+**https://github.com/brunodev85/winlator-app**
 
-- Stessa potenza di **Winlator** (esegue programmi Windows sul telefono)
-- Interfaccia più moderna e pulita, ispirata a **GameHub**:
-  - Schermata home con griglia di giochi/programmi
-  - Card grandi con cover
-  - Navigazione semplice (Home / Libreria / Impostazioni)
-  - Colori scuri e aspetto da launcher di giochi
+Le release ufficiali (APK gia pronte) sono qui:
+**https://github.com/brunodev85/winlator/releases**
+
+Compilare Winlator da zero con Actions e possibile ma **difficile** (submodule, asset, librerie native). Spesso la build fallisce senza configurazione avanzata.
 
 ---
 
-## Come ottenere il codice di Winlator
+## Cosa fare da telefono (passo passo)
 
-Il fork automatico a volte è lento. Fai così:
-
-### Opzione A — Fork dal sito
-1. Vai su: https://github.com/brunodev85/winlator
-2. Clicca **Fork**
+### 1. Fai il fork del codice app
+1. Apri: https://github.com/brunodev85/winlator-app
+2. Tocca **Fork**
 3. Scegli il tuo account `momimomi213467-art`
-4. Quando è pronto, rinominalo o lavora da lì
+4. Aspetta che compaia: `github.com/momimomi213467-art/winlator-app`
 
-### Opzione B — Clone locale
-```bash
-git clone https://github.com/brunodev85/winlator.git
-cd winlator
-```
+### 2. Quando il fork e pronto
+Scrivimi **"fork fatto"**. A quel punto:
+- collego / copio il workflow Actions nel fork
+- provo a far partire la build
+- se la build riesce, l APK esce in **Releases** e la scarichi dal telefono
 
-Poi apri il progetto in **Android Studio**.
-
----
-
-## Struttura prevista delle modifiche UI
-
-```
-app/src/main/
-├─ java/.../   ← attività e fragment
-├─ res/
-│   ├─ layout/     ← schermate (home, library, settings)
-│   ├─ drawable/   ← icone e sfondi stile GameHub
-│   ├─ values/     ← colori, temi, stringhe
-│   └─ menu/
-└─ AndroidManifest.xml
-```
-
-### Schermate da creare / modificare
-1. **Home** — griglia di giochi recenti + scorciatoie
-2. **Libreria** — tutti i container / exe
-3. **Dettaglio gioco** — cover grande + pulsante Play
-4. **Impostazioni** — container, grafica, controlli
+### 3. Scaricare un APK gia pronta (senza compilare)
+Se ti serve Winlator subito:
+1. Vai su https://github.com/brunodev85/winlator/releases
+2. Scarica l ultimo `.apk`
+3. Installalo sul telefono
 
 ---
 
-## Requisiti per compilare
+## Workflow Actions
 
-- Android Studio (ultimo)
-- JDK 17
-- Dispositivo o emulatore Android 7.0+
-- Pazienza: la prima build di Winlator può richiedere tempo
+In questo repo c e gia:
+`.github/workflows/build-apk.yml`
 
----
-
-## Prossimi passi
-
-1. Completare il fork di Winlator sul tuo account
-2. Analizzare i layout attuali di Winlator
-3. Creare un nuovo tema scuro + componenti Material/Card stile GameHub
-4. Sostituire progressivamente le schermate principali
-5. Generare la prima APK di test
+Quando nel repo c e un progetto Gradle completo (`gradlew` + `app/`), Actions:
+1. Compila l APK debug
+2. La carica come Artifact
+3. Crea un Release scaricabile dal telefono
 
 ---
 
-## Link utili
+## Limiti onesti
 
-- Winlator originale: https://github.com/brunodev85/winlator
-- Releases ufficiali: https://github.com/brunodev85/winlator/releases
-- Questo progetto: https://github.com/momimomi213467-art/GameHub-Winlator
+| Cosa | Fattibile? |
+|------|------------|
+| Scaricare APK ufficiale Winlator | Si, subito |
+| Fork winlator-app da telefono | Si |
+| Build Actions di un hub semplice | Si, affidabile |
+| Build Actions di Winlator completo | Difficile, puo fallire |
+| UI completa stile GameHub | Solo dopo che la build funziona + modifiche al codice |
 
 ---
 
-**Nota:** Winlator è un progetto grande. Le modifiche alla UI vanno fatte con attenzione per non rompere Wine, Box64 e i driver grafici.
+## Prossimo passo
+
+**Fai il fork di winlator-app** e scrivi `fork fatto`.
+
+Link diretto:
+https://github.com/brunodev85/winlator-app
